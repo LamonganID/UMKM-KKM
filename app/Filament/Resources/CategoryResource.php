@@ -5,17 +5,19 @@ namespace App\Filament\Resources;
 use Filament\Forms;
 use Filament\Tables;
 use Filament\Forms\Form;
+use App\Models\categories;
 use Filament\Tables\Table;
-use App\Models\KegiatanDesa;
 use Filament\Resources\Resource;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\CategoryResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\KegiatanDesaResource\Pages;
-use App\Filament\Resources\KegiatanDesaResource\RelationManagers;
+use App\Filament\Resources\CategoryResource\RelationManagers;
 
-class KegiatanDesaResource extends Resource
+class CategoryResource extends Resource
 {
-    protected static ?string $model = KegiatanDesa::class;
+    protected static ?string $model = Categories::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -24,6 +26,8 @@ class KegiatanDesaResource extends Resource
         return $form
             ->schema([
                 //
+            TextInput::make('name')->required()->label('Nama Kategori'),
+            TextInput::make('slug')->required()->label('Slug')->unique(),
             ]);
     }
 
@@ -32,6 +36,8 @@ class KegiatanDesaResource extends Resource
         return $table
             ->columns([
                 //
+            TextColumn::make('name')->label('Kategori'),
+            TextColumn::make('slug'),
             ])
             ->filters([
                 //
@@ -56,9 +62,9 @@ class KegiatanDesaResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListKegiatanDesas::route('/'),
-            'create' => Pages\CreateKegiatanDesa::route('/create'),
-            'edit' => Pages\EditKegiatanDesa::route('/{record}/edit'),
+            'index' => Pages\ListCategories::route('/'),
+            'create' => Pages\CreateCategory::route('/create'),
+            'edit' => Pages\EditCategory::route('/{record}/edit'),
         ];
     }
 }
