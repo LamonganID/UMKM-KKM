@@ -13,8 +13,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // Call other seeders
+        $this->call([
+            CategoriesSeeder::class,
+            RoleSeeder::class,
+        ]);
 
+        // Create a test admin user and assign admin role
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
@@ -22,6 +27,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin',
         ])->assignRole('admin');
 
+        // Create a test normal user and assign user role
         User::factory()->create([
             'name' => 'Test User 2',
             'email' => 'user@test.com',
