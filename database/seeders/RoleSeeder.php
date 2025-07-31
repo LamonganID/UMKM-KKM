@@ -14,14 +14,14 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
         // Define roles to be created
-        $roles = [
-            ['name' => 'admin'],
-            ['name' => 'user'],
-        ];
-
-        // Create roles if they do not exist
-        foreach ($roles as $role) {
-            Role::firstOrCreate($role);
-        }
+        
+        $adminRole = Role::create([
+            'name' => 'admin',
+            'guard_name' => 'web',
+        ]);
+        $userRole = Role::create([
+            'name' => 'user',
+            'guard_name' => 'web',
+        ]);
     }
 }

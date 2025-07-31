@@ -2,16 +2,18 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\PhotosResource\Pages;
-use App\Filament\Resources\PhotosResource\RelationManagers;
-use App\Models\Photos;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Photos;
+use Filament\Forms\Form;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\PhotosResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\PhotosResource\RelationManagers;
 
 class PhotosResource extends Resource
 {
@@ -24,21 +26,32 @@ class PhotosResource extends Resource
         return $form
             ->schema([
                 //
-            ]);
+                FileUpload::make('image')
+                    ->image()
+                    ->required()
+                    ->directory('photos')
+                    ->label('Foto'),
+            ])->columns(1);
     }
-
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
                 //
+                ImageColumn::make('image')
+                    ->label('Foto')
+                    ->disk('public')
+                    ->directory('photos')
+                    ->size(100)
+                    ->circular(),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-            ])
+                Tables\Actions\DeleteAction::make(),
+            ])->defaultSort('created_at', 'desc')
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
