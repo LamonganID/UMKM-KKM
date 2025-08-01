@@ -12,4 +12,5 @@ class HomeController extends Controller
         $posts = \App\Models\posts::orderBy('created_at', 'desc')->get();
         return view('welcome', compact('posts'));
     }
+
 }
