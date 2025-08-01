@@ -1,11 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\page\PostsController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index'])->name('welcome');
 
-Route::get('/posts', function () {
-    return view('page.posts');
-})->name('posts');
+Route::get('/posts', [PostsController::class, 'index'])->name('posts.index');
+Route::get('/posts/{id}', [PostsController::class, 'show'])->name('posts.show');
+
+Route::get('/albums', function () {
+    return view('page.albums');
+})->name('albums');

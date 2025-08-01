@@ -9,13 +9,12 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
+        @vite('resources/css/app.css')
+</head>
     <body>
         <div>
             <!-- Walk as if you are kissing the Earth with your feet. - Thich Nhat Hanh -->        
-            @include('components.navbar')
+            <x-navbar />
             @yield('content')
             @include('components.footer')
         </div>        

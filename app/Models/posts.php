@@ -20,6 +20,10 @@ class posts extends Model
         'published_at'
     ];  
 
+    protected $casts = [
+        'published_at' => 'datetime',
+    ];
+
     public function category()
     {
         return $this->belongsTo(categories::class, 'category_id');

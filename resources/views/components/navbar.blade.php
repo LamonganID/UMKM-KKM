@@ -1,4 +1,42 @@
-<div>
-    <!-- People find pleasure in different ways. I find it in keeping my mind clear. - Marcus Aurelius -->
-    <h1>nav</h1>
+<div class="navbar bg-base-100 shadow-sm">
+      <!-- People find pleasure in different ways. I find it in keeping my mind clear. - Marcus Aurelius -->
+  <div class="navbar-start">
+    <div class="dropdown">
+      <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+          <h1>Lorem</h1>
+      </div>
+      <ul
+        tabindex="0"
+        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+        <li><a href="{{ route('posts.index') }}">Posts</a></li>
+        <li>
+          <a>Berita</a>
+          <ul class="p-2">
+            <li><a>Submenu 1</a></li>
+            <li><a>Submenu 2</a></li>
+          </ul>
+        </li>
+        <li><a href="{{ route('albums') }}">Albums</a></li>
+      </ul>
+    </div>
+    <a class="btn btn-ghost text-xl" href="{{ route('welcome') }}">Lorem</a>
+  </div>
+  <div class="navbar-center hidden lg:flex">
+    <ul class="menu menu-horizontal px-1">
+      <li><a href="{{ route('posts.index') }}">Posts</a></li>
+      <li>
+        <details>
+          <summary>Berita</summary>
+          <ul class="p-2">
+            <li><a>Submenu 1</a></li>
+            <li><a>Submenu 2</a></li>
+          </ul>
+        </details>
+      </li>
+      <li><a href="{{ route('albums') }}">Albums</a></li>
+    </ul>
+  </div>
+  <div class="navbar-end">
+    <a class="btn">Button</a>
+  </div>
 </div>
