@@ -36,7 +36,7 @@ class PostsResource extends Resource
             RichEditor::make('content')->label('Konten')->required(),
             FileUpload::make('thumbnail')
                 ->image()
-                ->directory('thumbnails')
+                ->directory('thumbnail')
                 ->disk('public'),
             Select::make('category_id')
                 ->label('Kategori')
@@ -56,14 +56,20 @@ class PostsResource extends Resource
         return $table
             ->columns([
                 //
+            TextColumn::make('id')->label('ID'),
             TextColumn::make('title')->label('Judul')->searchable(),
             TextColumn::make('category.name')->label('Kategori'),
             TextColumn::make('status')->label('Status')->badge(),
             ImageColumn::make('thumbnail')
-            ->label('Gambar')
-            ->disk('public')
-            ->getStateUsing(fn ($record) => 'thumbnails/' . $record->thumbnail)
-            ->size(40),
+                ->label('Gambar')
+                ->size(40)
+                ->getStateUsing(function ($record) {
+                    $thumbnail = $record->thumbnail;
+                    if (filter_var($thumbnail, FILTER_VALIDATE_URL)) {
+                        return $thumbnail;
+                    }
+                    return $record->thumbnail_url;
+                }),
             TextColumn::make('published_at')->label('Terbit'),
             ])
             ->filters([

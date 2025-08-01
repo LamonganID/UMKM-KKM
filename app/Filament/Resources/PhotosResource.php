@@ -33,27 +33,28 @@ class PhotosResource extends Resource
                     ->label('Foto'),
             ])->columns(1);
     }
-    public static function table(Table $table): Table
-    {
-        return $table
-            ->columns([
-                //
-                ImageColumn::make('photo_url')
-                    ->label('Foto')
-            ])
-            ->filters([
-                //
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
-            ])->defaultSort('created_at', 'desc')
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
-    }
+public static function table(Table $table): Table
+{
+    return $table
+        ->columns([
+            //
+            ImageColumn::make('photo_url')
+                ->label('Foto')
+                ->size(40),
+        ])
+        ->filters([
+            //
+        ])
+        ->actions([
+            Tables\Actions\EditAction::make(),
+            Tables\Actions\DeleteAction::make(),
+        ])->defaultSort('created_at', 'desc')
+        ->bulkActions([
+            Tables\Actions\BulkActionGroup::make([
+                Tables\Actions\DeleteBulkAction::make(),
+            ]),
+        ]);
+}
 
     public static function getRelations(): array
     {
