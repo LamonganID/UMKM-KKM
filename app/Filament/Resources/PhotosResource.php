@@ -26,7 +26,7 @@ class PhotosResource extends Resource
         return $form
             ->schema([
                 //
-                FileUpload::make('image')
+                FileUpload::make('photo_path')
                     ->image()
                     ->required()
                     ->directory('photos')
@@ -38,12 +38,8 @@ class PhotosResource extends Resource
         return $table
             ->columns([
                 //
-                ImageColumn::make('image')
+                ImageColumn::make('photo_url')
                     ->label('Foto')
-                    ->disk('public')
-                    ->directory('photos')
-                    ->size(100)
-                    ->circular(),
             ])
             ->filters([
                 //

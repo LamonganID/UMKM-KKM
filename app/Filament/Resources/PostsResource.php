@@ -34,16 +34,14 @@ class PostsResource extends Resource
             TextInput::make('title')->label('Judul')->required(),
             TextInput::make('slug')->required()->unique(ignoreRecord: true),
             RichEditor::make('content')->label('Konten')->required(),
-            FileUpload::make('thumbnail')->image()->directory('thumbnails'),
+            FileUpload::make('thumbnail')
+                ->image()
+                ->directory('thumbnails')
+                ->disk('public'),
             Select::make('category_id')
                 ->label('Kategori')
                 ->relationship('category', 'name')
                 ->required(),
-            // Select::make('author_id')
-            //     ->label('Penulis')
-            //     ->relationship('author', 'name')
-            //     ->default(auth()->id())
-            //     ->hiddenOn('create'),
             Select::make('status')
                 ->options([
                     'draft' => 'Draft',
@@ -61,8 +59,11 @@ class PostsResource extends Resource
             TextColumn::make('title')->label('Judul')->searchable(),
             TextColumn::make('category.name')->label('Kategori'),
             TextColumn::make('status')->label('Status')->badge(),
-            ImageColumn::make('thumbnail')->label('Gambar'),
-            TextColumn::make('author.name')->label('Penulis'),
+            ImageColumn::make('thumbnail')
+            ->label('Gambar')
+            ->disk('public')
+            ->getStateUsing(fn ($record) => 'thumbnails/' . $record->thumbnail)
+            ->size(40),
             TextColumn::make('published_at')->label('Terbit'),
             ])
             ->filters([

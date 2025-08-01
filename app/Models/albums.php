@@ -8,8 +8,15 @@ class albums extends Model
 {
     //
     protected $fillable = ['name', 'slug', 'description'];
+
     public function photos()
     {
-        return $this->hasMany(Photos::class);
+        return $this->hasMany(photos::class);
+    }
+
+    public function getFirstPhotoUrlAttribute()
+    {
+        $firstPhoto = $this->photos()->first();
+        return $firstPhoto ? $firstPhoto->photo_url : null;
     }
 }

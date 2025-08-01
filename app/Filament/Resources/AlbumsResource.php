@@ -32,6 +32,10 @@ class AlbumsResource extends Resource
         return $table
             ->columns([
                 //
+                Tables\Columns\ImageColumn::make('first_photo_url')
+                    ->label('Cover Photo')
+                    ->square()
+                    ->size(50),
             ])
             ->filters([
                 //

@@ -5,6 +5,10 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Database\Seeders\CategoriesSeeder;
+use Database\Seeders\RoleSeeder;
+use Database\Seeders\UserSeeder;
+use Database\Seeders\posts;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,9 +22,9 @@ class DatabaseSeeder extends Seeder
             CategoriesSeeder::class,
             RoleSeeder::class,
             UserSeeder::class,
+            posts::class,
         ]);
 
-        // Create a test admin user and assign admin role
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
@@ -28,7 +32,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin',
         ])->assignRole('admin');
 
-        // Create a test normal user and assign user role
+        
         User::factory()->create([
             'name' => 'Test User 2',
             'email' => 'user@test.com',
