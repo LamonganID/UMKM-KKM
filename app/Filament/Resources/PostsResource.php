@@ -25,6 +25,20 @@ class PostsResource extends Resource
     protected static ?string $model = Posts::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-pencil-square';
+    protected static ?string $navigationGroup = 'Konten';
+    protected static ?int $navigationSort = 1;
+    
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['title', 'slug', 'content'];
+    }
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->withoutGlobalScopes([
+                SoftDeletingScope::class,
+            ]);
+    }
 
     public static function form(Form $form): Form
     {
@@ -38,6 +52,9 @@ class PostsResource extends Resource
                 ->image()
                 ->directory('thumbnail')
                 ->visibility('public')
+                ->imagePreviewHeight(150)
+                ->imageResizeMode('cover')
+                ->maxSize(2048)
                 ->label('Thumbnail'),
             Select::make('category_id')
                 ->label('Kategori')
@@ -64,7 +81,8 @@ class PostsResource extends Resource
             TextColumn::make('thumbnail')
                 ->label('Thumbnail')
                 ->formatStateUsing(fn ($state) => $state ? '<img src="' . asset('storage/' . $state) . '" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">' : '<span style="color: #9ca3af;">No Image</span>')
-                ->html(),
+                ->html()
+                ->url(fn ($record) => $record->gambar),
             TextColumn::make('published_at')->label('Terbit'),
             ])
 
