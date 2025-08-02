@@ -18,8 +18,9 @@ use App\Filament\Resources\PhotosResource\RelationManagers;
 class PhotosResource extends Resource
 {
     protected static ?string $model = Photos::class;
+    protected static ?string $navigationLabel = 'Foto';
 
-    protected static ?string $navigationIcon = 'heroicon-o-photo';
+    protected static ?string $navigationIcon = 'heroicon-o-camera';
 
     public static function form(Form $form): Form
     {

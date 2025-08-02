@@ -25,7 +25,7 @@ class postsFactory extends Factory
             'title' => $this->faker->sentence,
             'slug' => $this->faker->slug,
             'content' => $this->faker->paragraph,
-            'thumbnail' => $this->faker->imageUrl(),
+            // 'thumbnail' => $this->faker->imageUrl(),
             'category_id' => $this->faker->numberBetween(1, 9),
             'status' => $this->faker->randomElement(['draft', 'published']),
             'published_at' => $this->faker->dateTimeBetween('-1 year', 'now'),

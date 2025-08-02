@@ -2,28 +2,46 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\AlbumsResource\Pages;
-use App\Filament\Resources\AlbumsResource\RelationManagers;
-use App\Models\Albums;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Albums;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\AlbumsResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\AlbumsResource\RelationManagers;
 
 class AlbumsResource extends Resource
 {
     protected static ?string $model = Albums::class;
+    protected static ?string $navigationLabel = 'Album Carousel';
+    protected static ?string $navigationGroup = 'Konten';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-photo';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 //
+                TextInput::make('name')
+                    ->label('Nama Carousel')
+                    ->required(),
+                TextInput::make('description')
+                    ->label('Deskripsi')
+                    ->nullable(),
+                Forms\Components\FileUpload::make('carousel_image')
+                    ->label('Gambar Carousel')
+                    ->image()
+                    ->directory('albums/carousel_images')
+                    ->visibility('public')
+                    ->imagePreviewHeight(150)
+                    ->imageResizeMode('cover')
+                    ->maxSize(2048),
             ]);
     }
 
@@ -32,20 +50,35 @@ class AlbumsResource extends Resource
         return $table
             ->columns([
                 //
-                Tables\Columns\ImageColumn::make('first_photo_url')
-                    ->label('Cover Photo')
-                    ->square()
-                    ->size(50),
+                Tables\Columns\TextColumn::make('name')
+                    ->label('Nama Album')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('description')
+                    ->label('Deskripsi')
+                    ->limit(50)
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('carousel_image')
+                ->label('Carousel Images')
+                ->formatStateUsing(fn ($state) => $state ? '<img src="' . asset('storage/' . $state) . '" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">' : '<span style="color: #9ca3af;">No Image</span>')
+                ->html()
+                ->url(fn ($record) => asset('storage/' . $record->carousel_image)),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Dibuat Pada')
+                    ->dateTime()
+                    ->sortable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
