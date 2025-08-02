@@ -1,4 +1,4 @@
-<div class="navbar bg-base-100 shadow-sm">
+<div class="navbar bg-base-100 shadow-sm justify-center">
       <!-- People find pleasure in different ways. I find it in keeping my mind clear. - Marcus Aurelius -->
   <div class="navbar-start">
     <div class="dropdown">
@@ -26,7 +26,5 @@
       <li><a href="{{ route('albums') }}">Albums</a></li>
     </ul>
   </div>
-  <div class="navbar-end">
-    <a class="btn">Button</a>
-  </div>
+
 </div>

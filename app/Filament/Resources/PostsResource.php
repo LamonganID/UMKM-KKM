@@ -37,7 +37,8 @@ class PostsResource extends Resource
             FileUpload::make('thumbnail')
                 ->image()
                 ->directory('thumbnail')
-                ->disk('public'),
+                ->visibility('public')
+                ->label('Thumbnail'),
             Select::make('category_id')
                 ->label('Kategori')
                 ->relationship('category', 'name')
@@ -60,21 +61,17 @@ class PostsResource extends Resource
             TextColumn::make('title')->label('Judul')->searchable(),
             TextColumn::make('category.name')->label('Kategori'),
             TextColumn::make('status')->label('Status')->badge(),
-            ImageColumn::make('thumbnail')
-                ->label('Gambar')
-                ->size(40)
-                ->getStateUsing(function ($record) {
-                    $thumbnail = $record->thumbnail;
-                    if (filter_var($thumbnail, FILTER_VALIDATE_URL)) {
-                        return $thumbnail;
-                    }
-                    return $record->thumbnail_url;
-                }),
+            TextColumn::make('thumbnail')
+                ->label('Thumbnail')
+                ->formatStateUsing(fn ($state) => $state ? '<img src="' . asset('storage/' . $state) . '" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">' : '<span style="color: #9ca3af;">No Image</span>')
+                ->html(),
             TextColumn::make('published_at')->label('Terbit'),
             ])
+
             ->filters([
                 //
             ])
+
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),

@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('albums', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('slug')->unique();
-            $table->text('description')->nullable();
-            $table->string('cover_image')->nullable();
-            $table->timestamps();
+        Schema::table('posts', function (Blueprint $table) {
+            $table->softDeletes(); // Adds deleted_at column for soft deletes
         });
     }
 
@@ -26,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('albums');
+        Schema::table('posts', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };
