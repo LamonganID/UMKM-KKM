@@ -26,6 +26,8 @@ class PostsResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-pencil-square';
     protected static ?string $navigationGroup = 'Konten';
+    protected static ?string $navigationLabel = 'Berita';
+    protected static ?string $slug = 'posts';
     protected static ?int $navigationSort = 1;
     
     public static function getGloballySearchableAttributes(): array
