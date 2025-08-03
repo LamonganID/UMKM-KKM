@@ -107,6 +107,7 @@ class PostsResource extends Resource
     {
         return [
             //
+            
         ];
     }
 
