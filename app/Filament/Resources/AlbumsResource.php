@@ -10,6 +10,7 @@ use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\AlbumsResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -34,7 +35,7 @@ class AlbumsResource extends Resource
                 TextInput::make('description')
                     ->label('Deskripsi')
                     ->nullable(),
-                Forms\Components\FileUpload::make('carousel_image')
+                FileUpload::make('carousel_image')
                     ->label('Gambar Carousel')
                     ->image()
                     ->directory('albums/carousel_images')
@@ -54,20 +55,23 @@ class AlbumsResource extends Resource
                     ->label('Nama Album')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('description')
+                    
+                TextColumn::make('description')
                     ->label('Deskripsi')
                     ->limit(50)
                     ->searchable()
                     ->sortable(),
+
                 TextColumn::make('carousel_image')
                 ->label('Carousel Images')
                 ->formatStateUsing(fn ($state) => $state ? '<img src="' . asset('storage/' . $state) . '" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">' : '<span style="color: #9ca3af;">No Image</span>')
                 ->html()
                 ->url(fn ($record) => asset('storage/' . $record->carousel_image)),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->label('Dibuat Pada')
-                    ->dateTime()
-                    ->sortable(),
+
+                TextColumn::make('created_at')
+                ->label('Dibuat Pada')
+                ->dateTime()
+                ->sortable(),
             ])
             ->filters([
                 //

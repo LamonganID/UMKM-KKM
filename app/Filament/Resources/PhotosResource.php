@@ -6,9 +6,11 @@ use Filament\Forms;
 use Filament\Tables;
 use App\Models\Photos;
 use Filament\Forms\Form;
-use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\PhotosResource\Pages;
@@ -27,10 +29,17 @@ class PhotosResource extends Resource
         return $form
             ->schema([
                 //
-                FileUpload::make('photo_path')
-                    ->image()
+                TextInput::make('caption')
+                    ->label('Caption')
                     ->required()
-                    ->directory('photos')
+                    ->maxLength(255),
+                FileUpload::make('photo_path')
+                    ->directory('photos/photo_path')
+                    ->visibility('public')
+                    ->image()
+                    ->imagePreviewHeight(150)
+                    ->imageResizeMode('cover')
+                    ->maxSize(2048)
                     ->label('Foto'),
             ])->columns(1);
     }
@@ -39,9 +48,21 @@ public static function table(Table $table): Table
     return $table
         ->columns([
             //
-            ImageColumn::make('photo_url')
+            TextColumn::make('caption')
+                ->label('Keterangan')
+                ->searchable()
+                ->sortable(),
+            ImageColumn::make('photo_path')
                 ->label('Foto')
-                ->size(40),
+                ->disk('public')
+                ->height(50)
+                ->width(50)
+                ->square()
+                ->defaultImageUrl(asset('storage/no-image.png')),
+            TextColumn::make('created_at')
+                ->label('Tanggal Dibuat')
+                ->dateTime()
+                ->sortable(),
         ])
         ->filters([
             //

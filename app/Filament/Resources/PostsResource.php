@@ -28,6 +28,7 @@ class PostsResource extends Resource
     protected static ?string $navigationGroup = 'Konten';
     protected static ?string $navigationLabel = 'Berita';
     // protected static ?string $slug = 'posts';
+    // protected static ?string $recordTitleAttribute = 'title';
     protected static ?int $navigationSort = 1;
     
     public static function getGloballySearchableAttributes(): array
@@ -106,8 +107,7 @@ class PostsResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
-            
+            //            
         ];
     }
 
