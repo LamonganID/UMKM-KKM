@@ -2,65 +2,105 @@
 
 @section('title', 'Posts')
 
+@php
+    use Illuminate\Support\Str;
+@endphp
+
 @section('content')
-    <h1 class="text-3xl font-bold mb-6">Posts</h1>
-
-    {{-- Carousel berita --}}
-    @if(isset($carouselPosts) && $carouselPosts->isNotEmpty())
-        <div class="carousel w-full mb-8 rounded-lg shadow-lg">
-            @foreach($carouselPosts as $post)
-                <div id="slide{{ $loop->index }}" class="carousel-item relative w-full">
-                    @if($post->thumbnail_url)
-                        <img src="{{ $post->thumbnail_url }}" class="w-full h-64 object-cover rounded-lg" alt="{{ $post->title }}" />
-                    @endif
-                    <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-4 rounded-b-lg text-white">
-                        <h3 class="text-lg font-semibold">
-                            <a href="{{ route('posts.show', $post->id) }}" class="hover:underline">{{ $post->title }}</a>
-                        </h3>
-                    </div>
-                    <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                        <a href="#slide{{ $loop->index == 0 ? $carouselPosts->count() - 1 : $loop->index - 1 }}" class="btn btn-circle bg-primary text-white hover:bg-primary-focus">❮</a>
-                        <a href="#slide{{ $loop->index == $carouselPosts->count() - 1 ? 0 : $loop->index + 1 }}" class="btn btn-circle bg-primary text-white hover:bg-primary-focus">❯</a>
-                    </div>
+    <!-- Carousel Section -->
+    <section class="mb-8">
+        <div class="carousel carousel-center bg-neutral rounded-box space-x-4 p-4 snap-x snap-mandatory overflow-x-auto">
+            @foreach($carouselPosts as $index => $post)
+                <div class="carousel-item relative w-full md:w-1/2 lg:w-1/3 snap-start">
+                    <a href="{{ route('posts.show', $post->id) }}" class="block">
+                        <div class="card card-compact bg-base-100 shadow-xl">
+                            <figure>
+                                @if($post->thumbnail_url)
+                                    <img src="{{ $post->thumbnail_url }}" alt="{{ $post->title }}" class="w-full h-64 object-cover" />
+                                @else
+                                    <div class="w-full h-64 bg-gray-300 flex items-center justify-center">
+                                        <span class="text-gray-500">No Image</span>
+                                    </div>
+                                @endif
+                            </figure>
+                            <div class="card-body">
+                                <h2 class="card-title text-sm">{{ Str::limit($post->title, 50) }}</h2>
+                                <p class="text-xs text-gray-600">{{ $post->category->name ?? 'Uncategorized' }}</p>
+                                <p class="text-xs text-gray-500">{{ $post->created_at->format('d M Y') }}</p>
+                            </div>
+                        </div>
+                    </a>
                 </div>
             @endforeach
         </div>
-    @endif
+    </section>
 
-    {{-- Navigasi category di bawah carousel --}}
-    @if(isset($categories) && $categories->isNotEmpty())
-        <div class="flex flex-wrap justify-center gap-4 mb-8">
-            @foreach($categories as $category)
-                <a href="{{ route('posts.category', $category->id) }}" class="badge badge-outline hover:badge-primary cursor-pointer">
-                    {{ $category->name }}
-                </a>
-            @endforeach
+    <!-- Navbar with Categories -->
+    <section class="mb-8">
+        <div class="navbar bg-base-100 shadow-sm rounded-lg">
+            <div class="navbar-start">
+                <div class="dropdown">
+                    <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
+                        </svg>
+                    </div>
+                    <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                        <li><a href="{{ route('posts.index') }}" class="font-semibold">All Categories</a></li>
+                        @foreach($categories as $category)
+                            <li><a href="{{ route('posts.index') }}?category={{ $category->slug }}">{{ $category->name }} ({{ $category->posts_count }})</a></li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+            <div class="navbar-center hidden lg:flex">
+                <ul class="menu menu-horizontal px-1">
+                    <li><a href="{{ route('posts.index') }}" class="font-semibold">All Categories</a></li>
+                    @foreach($categories as $category)
+                        <li><a href="{{ route('posts.index') }}?category={{ $category->slug }}">{{ $category->name }} ({{ $category->posts_count }})</a></li>
+                    @endforeach
+                </ul>
+            </div>
+            <div class="navbar-end">
+                <span class="text-sm font-semibold">Filter by Category</span>
+            </div>
         </div>
-    @endif
+    </section>
 
-    {{-- Kartu berita --}}
-    @if($posts->isEmpty())
-        <p class="text-center text-gray-500">No posts available.</p>
-    @else
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-6">
+    <!-- Posts Grid -->
+    <section class="mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @foreach($posts as $post)
-                <div class="card bg-base-100 shadow-xl rounded-lg hover:shadow-2xl transition-shadow duration-300">
-                    @if($post->thumbnail_url)
-                        <figure><img src="{{ $post->thumbnail_url }}" alt="{{ $post->title }}" class="w-full h-48 object-cover rounded-t-lg"></figure>
-                    @endif
+                <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300">
+                    <figure>
+                        @if($post->thumbnail_url)
+                            <img src="{{ $post->thumbnail_url }}" alt="{{ $post->title }}" class="w-full h-48 object-cover" />
+                        @else
+                            <div class="w-full h-48 bg-gray-300 flex items-center justify-center">
+                                <span class="text-gray-500">No Image</span>
+                            </div>
+                        @endif
+                    </figure>
                     <div class="card-body">
-                        <h2 class="card-title">
-                            <a href="{{ route('posts.show', $post->id) }}" class="hover:text-primary hover:underline transition-colors duration-200">{{ $post->title }}</a>
-                        </h2>
-                        <p class="text-sm text-gray-600">
-                            {{ \Illuminate\Support\Str::limit(strip_tags($post->content), 100, '...') }}
-                        </p>
-                        <p class="text-xs text-gray-400 mt-2">
-                            Published at: {{ $post->published_at ? $post->published_at->format('d M Y') : 'N/A' }}
-                        </p>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="badge badge-primary badge-sm">{{ $post->category->name ?? 'Uncategorized' }}</span>
+                            <span class="text-xs text-gray-500">{{ $post->created_at->format('d M Y') }}</span>
+                        </div>
+                        <h2 class="card-title text-lg">{{ Str::limit($post->title, 60) }}</h2>
+                        <p class="text-gray-600 text-sm">{{ Str::limit(strip_tags($post->content), 120) }}</p>
+                        <div class="card-actions justify-end mt-4">
+                            <a href="{{ route('posts.show', $post->id) }}" class="btn btn-primary btn-sm">Read More</a>
+                        </div>
                     </div>
                 </div>
             @endforeach
         </div>
-    @endif
+    </section>
+
+    <!-- Pagination -->
+    <section>
+        <div class="flex justify-center">
+            {{ $posts->links() }}
+        </div>
+    </section>
 @endsection
