@@ -48,7 +48,7 @@
                     <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                         <li><a href="{{ route('posts.index') }}" class="font-semibold">All Categories</a></li>
                         @foreach($categories as $category)
-                            <li><a href="{{ route('posts.index') }}?category={{ $category->slug }}">{{ $category->name }} ({{ $category->posts_count }})</a></li>
+                            <li><a href="{{ route('posts.index') }}?category={{ $category->slug }}">{{ $category->name }}</a></li>
                         @endforeach
                     </ul>
                 </div>
@@ -57,7 +57,7 @@
                 <ul class="menu menu-horizontal px-1">
                     <li><a href="{{ route('posts.index') }}" class="font-semibold">All Categories</a></li>
                     @foreach($categories as $category)
-                        <li><a href="{{ route('posts.index') }}?category={{ $category->slug }}">{{ $category->name }} ({{ $category->posts_count }})</a></li>
+                        <li><a href="{{ route('posts.index') }}?category={{ $category->slug }}">{{ $category->name }} </a></li>
                     @endforeach
                 </ul>
             </div>
