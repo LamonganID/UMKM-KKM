@@ -9,13 +9,22 @@ use App\Models\categories;
 
 class PostsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         // menampilkan halaman index dari posts
-        $posts = posts::with('category')
+        $query = posts::with('category')
             ->where('status', 'published')
-            ->orderBy('created_at', 'desc')
-            ->paginate(9);
+            ->orderBy('created_at', 'desc');
+            
+        // Filter berdasarkan kategori jika parameter category ada
+        if ($request->has('category')) {
+            $categorySlug = $request->get('category');
+            $query->whereHas('category', function($q) use ($categorySlug) {
+                $q->where('slug', $categorySlug);
+            });
+        }
+        
+        $posts = $query->paginate(9);
             
         $carouselPosts = posts::with('category')
             ->where('status', 'published')
