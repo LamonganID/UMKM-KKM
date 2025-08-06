@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Posts')
+@section('title', 'Berita')
 
 @php
     use Illuminate\Support\Str;

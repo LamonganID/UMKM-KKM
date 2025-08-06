@@ -2,18 +2,20 @@
     <!-- Breathing in, I calm body and mind. Breathing out, I smile. - Thich Nhat Hanh -->
   <nav>
     <h6 class="footer-title">Services</h6>
-    <a class="link link-hover">Branding</a>
-    <a class="link link-hover">Design</a>
-    <a class="link link-hover">Marketing</a>
-    <a class="link link-hover">Advertisement</a>
+    <a class="link link-hover" href="{{ route('welcome') }}">Home</a>
+    <a class="link link-hover"href="#profile">Profile</a>
+    <a class="link link-hover" href="#visiMisi">Visi-Misi</a>
+    <a class="link link-hover"href="{{ route('posts.index') }}">Berita</a>
+    <a class="link link-hover" href="{{ route('albums') }}">Albums</a>
+    <a class="link link-hover" href="{{ route('contact') }}">Contact</a>
   </nav>
-  <nav>
+  {{-- <nav>
     <h6 class="footer-title">Company</h6>
     <a class="link link-hover">About us</a>
     <a class="link link-hover">Contact</a>
     <a class="link link-hover">Jobs</a>
     <a class="link link-hover">Press kit</a>
-  </nav>
+  </nav> --}}
   <nav>
     <h6 class="footer-title">Social</h6>
     <div class="grid grid-flow-col gap-4">
