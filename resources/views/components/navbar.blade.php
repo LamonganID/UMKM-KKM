@@ -8,9 +8,20 @@
       </div>
       <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
         <li><a href="{{ route('welcome') }}">Home</a></li>
-        <li><a href="#profile">Profile</a></li>
-        <li><a href="#visiMisi">Visi-Misi</a></li>
-        <li><a href="{{ route('posts.index') }}">Berita</a></li>
+        <li>
+          @if (request()->routeIs('welcome'))
+              <a href="#profile">Profile</a>
+          @else
+              <a href="{{ route('welcome') }}#profile">Profile</a>
+          @endif
+        </li>
+        <li>
+          @if (request()->routeIs('welcome'))
+          <a href="#visiMisi">Visi-Misi</a>
+          @else
+          <a href="{{ route('welcome') }}#visiMisi">Visi-Misi</a>
+          @endif
+        </li>        <li><a href="{{ route('posts.index') }}">Berita</a></li>
         <li><a href="{{ route('albums') }}">Albums</a></li>
         <li><a href="{{ route('contact') }}">Contact</a></li>
       </ul>
@@ -19,8 +30,20 @@
   <div class="navbar-center hidden lg:flex">
     <ul class="menu menu-horizontal px-1">
       <li><a href="{{ route('welcome') }}">Home</a></li>
-      <li><a href="#profile">Profile</a></li>
-      <li><a href="#visiMisi">Visi-Misi</a></li>
+        <li>
+          @if (request()->routeIs('welcome'))
+              <a href="#profile">Profile</a>
+          @else
+              <a href="{{ route('welcome') }}#profile">Profile</a>
+          @endif
+        </li>      
+        <li>
+          @if (request()->routeIs('welcome'))
+          <a href="#visiMisi">Visi-Misi</a>
+          @else
+           <a href="{{ route('welcome') }}#visiMisi">Visi-Misi</a>
+          @endif
+        </li>
       <li><a href="{{ route('posts.index') }}">Berita</a></li>
       <li><a href="{{ route('albums') }}">Albums</a></li>
       <li><a href="{{ route('contact') }}">Contact</a></li>
