@@ -17,11 +17,12 @@
         </li>
         <li>
           @if (request()->routeIs('welcome'))
-          <a href="#visiMisi">Visi-Misi</a>
+            <a href="#visiMisi">Visi-Misi</a>
           @else
-          <a href="{{ route('welcome') }}#visiMisi">Visi-Misi</a>
+            <a href="{{ route('welcome') }}#visiMisi">Visi-Misi</a>
           @endif
-        </li>        <li><a href="{{ route('posts.index') }}">Berita</a></li>
+        </li>        
+        <li><a href="{{ route('posts.index') }}">Berita</a></li>
         <li><a href="{{ route('albums') }}">Albums</a></li>
         <li><a href="{{ route('contact') }}">Contact</a></li>
       </ul>
