@@ -80,7 +80,13 @@ class PostsResource extends Resource
             TextColumn::make('id')->label('ID'),
             TextColumn::make('title')->label('Judul')->searchable(),
             TextColumn::make('category.name')->label('Kategori'),
-            TextColumn::make('status')->label('Status')->badge(),
+            TextColumn::make('status')
+                ->label('Status')
+                ->badge()
+                ->color(fn (string $state): string => match ($state) {
+                    'published' => 'success',
+                    'draft' => 'warning',
+                }),
             TextColumn::make('thumbnail')
                 ->label('Thumbnail')
                 ->formatStateUsing(fn ($state) => $state ? '<img src="' . asset('storage/' . $state) . '" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">' : '<span style="color: #9ca3af;">No Image</span>')
