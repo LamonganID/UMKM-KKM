@@ -32,7 +32,7 @@
             <!-- Walk as if you are kissing the Earth with your feet. - Thich Nhat Hanh -->        
             <x-navbar />
             @yield('content')
-            @include('components.footer')
+            <x-footer></x-footer>
         </div>
 
         <script>

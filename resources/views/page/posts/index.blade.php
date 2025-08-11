@@ -9,6 +9,7 @@
 @section('content')
 
     <!-- Carousel Section -->
+<div class="px-5">
     <section class="mb-8">
         <div class="carousel carousel-center bg-neutral rounded-box space-x-4 p-4 snap-x snap-mandatory overflow-x-auto">
             @foreach($carouselPosts as $index => $post)
@@ -37,7 +38,7 @@
     </section>
 
     <!-- Categories Navbar -->
-    <section class="mb-8 px-5">
+    <section class="mb-8">
         <div class="flex gap-4 overflow-x-auto pb-2 scrollbar-hide max-w-full">
             <a href="{{ route('posts.index') }}" class="px-4 py-2 rounded-lg bg-primary text-white whitespace-nowrap">
                 All Categories
@@ -84,11 +85,12 @@
     </section>
 
     <!-- Pagination -->
-    <section>
-        <div class="flex justify-center mt-6">
+    <section >
+        <div class="my-6">
             {{ $posts->links() }}
         </div>
     </section>
+</div>
 
 <style>
 /* Sembunyikan scrollbar */

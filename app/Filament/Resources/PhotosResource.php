@@ -34,9 +34,9 @@ class PhotosResource extends Resource
                     ->required()
                     ->maxLength(255),
                 FileUpload::make('photo_path')
-                    ->directory('photos/photo_path')
-                    ->visibility('public')
                     ->image()
+                    ->directory('photos')
+                    ->visibility('public')
                     ->imagePreviewHeight(150)
                     ->imageResizeMode('cover')
                     ->maxSize(2048)
@@ -52,13 +52,11 @@ public static function table(Table $table): Table
                 ->label('Keterangan')
                 ->searchable()
                 ->sortable(),
-            ImageColumn::make('photo_path')
+            TextColumn::make('photo_path')
                 ->label('Foto')
-                ->disk('public')
-                ->height(50)
-                ->width(50)
-                ->square()
-                ->defaultImageUrl(asset('storage/no-image.png')),
+                ->formatStateUsing(fn ($state) => $state ? '<img src="' . asset('storage/' . $state) . '" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">' : '<span style="color: #9ca3af;">No Image</span>')
+                ->html()
+                ->url(fn ($record) => $record->photo_path),
             TextColumn::make('created_at')
                 ->label('Tanggal Dibuat')
                 ->dateTime()
