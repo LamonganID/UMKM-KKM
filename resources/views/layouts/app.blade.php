@@ -27,7 +27,7 @@
             }
         </style>
 </head>
-    <body>
+    <body w-full>
         <div>
             <!-- Walk as if you are kissing the Earth with your feet. - Thich Nhat Hanh -->        
             <x-navbar />
