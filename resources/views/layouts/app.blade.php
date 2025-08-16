@@ -13,7 +13,7 @@
         <!-- Scripts -->
         @assets('css/style.css')
         <style>
-            html {
+            html { 
                 scroll-behavior: smooth;
             }
             
