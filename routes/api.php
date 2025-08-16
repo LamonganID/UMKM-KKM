@@ -7,4 +7,5 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::apiResource('/posts', App\Http\Controllers\Api\PostsController::class);
+Route::get('/posts', [App\Http\Controllers\Api\PostsController::class, 'index']);
+Route::get('/posts/{slug}', [App\Http\Controllers\Api\PostsController::class, 'show']);
