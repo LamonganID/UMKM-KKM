@@ -9,7 +9,7 @@ use App\Http\Controllers\api\PhotosController;
 use App\Http\Controllers\Api\PostsController; 
 use App\Http\Controllers\Api\ContactController;
 
-Route::get('/welcome', [HomeController::class,'index']);
+Route::get('/', [HomeController::class,'index']);
 Route::get('/posts', [PostsController::class, 'index']);
 Route::get('/posts/{slug}', [PostsController::class, 'show']);
 Route::get('/contact', [ContactController::class, 'index']);
