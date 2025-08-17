@@ -12,23 +12,17 @@ class ContactResources extends JsonResource
      *
      * @return array<string, mixed>
      */
-
-    public $status;
-    public $massage;
-    public $resource;
-    
-    public function __construct($resource, $status, $massage)
-    {
-        parent::__construct($resource);
-        $this->resource= $resource;
-        $this->status = $status;
-    }
     public function toArray(Request $request): array
     {
         return [
-            'status' => $this->status,
-            'massage' => $this->massage,
-            'data' => parent::toArray($request),
+            'id'=>$this->id,
+            'name'=>$this->name,
+            'email'=>$this->email,
+            'phone'=>$this->phone,
+            'jabatan'=>$this->jabatan,
+            'image' => $this->image,
+            'created_at'=>$this->created_at,
+            'updated_at'=>$this->updated_at,
         ];
     }
 }
