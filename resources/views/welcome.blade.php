@@ -4,7 +4,7 @@
 
 @section('content')
     <!-- Carousel Section -->
-    @include('components.carousel')
+    @include('components.carousel', ['albums' => $albums])
     
     <!-- Profile Section -->
     <div id="profile" class="hero min-h-screen bg-base-200">
