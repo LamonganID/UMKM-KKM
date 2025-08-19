@@ -75,10 +75,10 @@ class ContactResource extends Resource
                     ->sortable(),
                 TextColumn::make('image')
                 ->label('Images')
-                
                 ->formatStateUsing(fn ($state) => $state ? '<img src="' . $state . '" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">' : '<span style="color: #9ca3af;">No Image</span>')
                 ->html()
                 ->url(fn ($record) => $record->image),
+                
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Dibuat Pada')
                     ->dateTime()
