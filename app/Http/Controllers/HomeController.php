@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\posts;
 use App\Models\albums;
 use App\Models\Contact;
+use App\Models\photos;
 
 class HomeController extends Controller
 {
@@ -20,6 +21,9 @@ class HomeController extends Controller
         // Fetch contact information
         $contacts = Contact::orderBy('created_at', 'desc')->get();
         
-        return view('welcome', compact('latestPosts', 'albums', 'contacts'));
+        // Fetch latest photos (limit to 6 for the landing page)
+        $latestPhotos = photos::orderBy('created_at', 'desc')->limit(6)->get();
+        
+        return view('welcome', compact('latestPosts', 'albums', 'contacts', 'latestPhotos'));
     }
 }
