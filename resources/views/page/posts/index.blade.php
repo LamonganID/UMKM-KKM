@@ -10,7 +10,7 @@
 
     <!-- Carousel Section -->
 <div class="px-5">
-    <section class="mb-8">
+    <section class="mb-8 pt-8">
         <div class="carousel carousel-center bg-neutral rounded-box space-x-4 p-4 snap-x snap-mandatory overflow-x-auto">
             @foreach($carouselPosts as $index => $post)
                 <div class="carousel-item relative w-full md:w-1/2 lg:w-1/3 snap-start">
