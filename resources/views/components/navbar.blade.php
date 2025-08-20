@@ -51,6 +51,6 @@
     </ul>
   </div>
   <div class="navbar-end">
-    <a class="btn btn-ghost text-xl rounded-lg" href="{{ route('welcome') }}">Bandar Kedungmulyo</a>
+    <a class="btn btn-ghost text-xl rounded-lg" href="{{ route('welcome') }}">EXAMPLE.ID</a>
   </div>
 </div>

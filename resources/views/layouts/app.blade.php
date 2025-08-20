@@ -27,14 +27,14 @@
             }
         </style>
 </head>
-    <body w-full>
+    <body w-full font-roboto>
         <div>
             <!-- Walk as if you are kissing the Earth with your feet. - Thich Nhat Hanh -->        
             <x-navbar />
             @yield('content')
             <x-footer></x-footer>
         </div>
-
+        @vite('resources/js/aos-config.js')
         <script>
             // Enhanced smooth scrolling for anchor links
             document.addEventListener('DOMContentLoaded', function() {
