@@ -44,7 +44,7 @@
                 <div class="divider" data-aos="fade-up" data-aos-delay="300"></div>
                 <div class="py-6">
                     <h2 class="text-2xl font-bold" data-aos="fade-up" data-aos-delay="400">Visi</h2>
-                    <p class="py-4" data-aos="fade-up" data-aos-delay="500">Terwujudnya Desa Bandar Kedungmulyo yang Mandiri, Religius, dan Berbudaya</p>
+                    <p class="py-4" data-aos="fade-up" data-aos-delay="500">Terwujudnya Desa Lorem ipsum dolor sit, Religius, dan Berbudaya</p>
                     
                     <h2 class="text-2xl font-bold" data-aos="fade-up" data-aos-delay="600">Misi</h2>
                     <ul class="py-4 text-left">
