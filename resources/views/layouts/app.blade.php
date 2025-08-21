@@ -11,7 +11,7 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
         @vite('resources/css/app.css')
         <!-- Scripts -->
-        @assets('css/style.css')
+        @vite('resources/js/app.js')
         <style>
             html { 
                 scroll-behavior: smooth;
@@ -25,13 +25,18 @@
             a[href^="#"] {
                 transition: all 0.3s ease;
             }
+            main {
+                padding-top: 5rem; /* sesuai tinggi navbar */
+            }
+
         </style>
 </head>
-    <body w-full font-roboto>
-        <div>
-            <!-- Walk as if you are kissing the Earth with your feet. - Thich Nhat Hanh -->        
+    <body class="min-h-screen font-sans antialiased">
+        <div class="flex flex-col min-h-screen">
             <x-navbar />
-            @yield('content')
+            <main class="flex-grow pt-16">
+                @yield('content')
+            </main>
             <x-footer></x-footer>
         </div>
         @vite('resources/js/aos-config.js')

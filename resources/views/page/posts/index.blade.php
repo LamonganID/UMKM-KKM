@@ -7,45 +7,46 @@
 @endphp
 
 @section('content')
+<div class="container mx-auto px-4 lg:px-8 py-10">
 
-    <!-- Carousel Section -->
-<div class="px-5">
-    <section class="mb-8 pt-8">
-        <div class="carousel carousel-center bg-neutral rounded-box space-x-4 p-4 snap-x snap-mandatory overflow-x-auto">
+    <!-- Hero Carousel -->
+    <section class="mb-12">
+        <div class="carousel w-full rounded-2xl shadow-lg">
             @foreach($carouselPosts as $index => $post)
-                <div class="carousel-item relative w-full md:w-1/2 lg:w-1/3 snap-start">
-                    <a href="{{ route('posts.show', $post->id) }}" class="block">
-                        <div class="card card-compact bg-base-100 shadow-lg hover:shadow-xl transition">
-                            <figure>
-                                @if($post->thumbnail_url)
-                                    <img src="{{ $post->thumbnail_url }}" alt="{{ $post->title }}" class="w-full h-56 object-cover rounded-t-lg" />
-                                @else
-                                    <div class="w-full h-56 bg-gray-300 flex items-center justify-center rounded-t-lg">
-                                        <span class="text-gray-500">No Image</span>
-                                    </div>
-                                @endif
-                            </figure>
-                            <div class="card-body">
-                                <h2 class="card-title text-sm">{{ Str::limit($post->title, 50) }}</h2>
-                                <p class="text-xs text-gray-600">{{ $post->category->name ?? 'Uncategorized' }}</p>
-                                <p class="text-xs text-gray-500">{{ $post->created_at->format('d M Y') }}</p>
+                <div id="slide{{ $index }}" class="carousel-item relative w-full">
+                    <a href="{{ route('posts.show', $post->id) }}" class="w-full">
+                        @if($post->thumbnail_url)
+                            <img src="{{ $post->thumbnail_url }}" class="w-full aspect-video object-cover" alt="{{ $post->title }}" />
+                        @else
+                            <div class="w-full aspect-video bg-base-200 flex items-center justify-center">
+                                <span class="text-base-content">No Image</span>
                             </div>
+                        @endif
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+                            <h2 class="text-white text-lg md:text-2xl font-semibold">
+                                {{ Str::limit($post->title, 80) }}
+                            </h2>
                         </div>
                     </a>
+                    <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+                        <a href="#slide{{ $loop->first ? count($carouselPosts) - 1 : $index - 1 }}" class="btn btn-circle">❮</a>
+                        <a href="#slide{{ $loop->last ? 0 : $index + 1 }}" class="btn btn-circle">❯</a>
+                    </div>
                 </div>
             @endforeach
         </div>
     </section>
 
-    <!-- Categories Navbar -->
-    <section class="mb-8">
-        <div class="flex gap-4 overflow-x-auto pb-2 scrollbar-hide max-w-full">
-            <a href="{{ route('posts.index') }}" class="px-4 py-2 rounded-lg bg-primary text-white whitespace-nowrap">
-                All Categories
+    <!-- Categories -->
+    <section class="mb-10">
+        <div class="flex gap-3 overflow-x-auto scrollbar-hide pb-2">
+            <a href="{{ route('posts.index') }}"
+               class="btn btn-sm rounded-full {{ request()->has('category') ? 'btn-outline' : 'btn-primary' }}">
+                All
             </a>
             @foreach($categories as $category)
-                <a href="{{ route('posts.index') }}?category={{ $category->slug }}"
-                   class="px-4 py-2 rounded-lg bg-base-200 whitespace-nowrap hover:bg-base-300">
+                <a href="{{ route('posts.index', ['category' => $category->slug]) }}"
+                   class="btn btn-sm rounded-full {{ request('category') === $category->slug ? 'btn-primary' : 'btn-outline' }}">
                     {{ $category->name }}
                 </a>
             @endforeach
@@ -53,48 +54,52 @@
     </section>
 
     <!-- Posts Grid -->
-    <section class="mb-8 px-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <section>
+        <h2 class="text-2xl font-bold mb-6">Latest Posts</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             @forelse($posts as $post)
-                <div class="card bg-base-100 shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                    <figure>
+                <div class="card bg-base-100 shadow-md hover:shadow-xl transition rounded-xl">
+                    <figure class="overflow-hidden">
                         @if($post->thumbnail_url)
-                            <img src="{{ $post->thumbnail_url }}" alt="{{ $post->title }}" class="w-full h-48 object-cover rounded-t-lg" />
+                            <img src="{{ $post->thumbnail_url }}" alt="{{ $post->title }}"
+                                 class="w-full aspect-video object-cover hover:scale-105 transition duration-500" />
                         @else
-                            <div class="w-full h-48 bg-gray-300 flex items-center justify-center rounded-t-lg">
-                                <span class="text-gray-500">No Image</span>
+                            <div class="w-full aspect-video bg-base-200 flex items-center justify-center">
+                                <span class="text-base-content/70">No Image</span>
                             </div>
                         @endif
                     </figure>
                     <div class="card-body">
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="badge badge-primary badge-sm">{{ $post->category->name ?? 'Uncategorized' }}</span>
-                            <span class="text-xs text-gray-500">{{ $post->created_at->format('d M Y') }}</span>
+                        <div class="flex items-center justify-between text-xs mb-2">
+                            <span class="badge badge-primary">{{ $post->category->name ?? 'Uncategorized' }}</span>
+                            <span class="text-gray-500">{{ $post->created_at->format('d M Y') }}</span>
                         </div>
-                        <h2 class="card-title text-lg">{{ Str::limit($post->title, 60) }}</h2>
-                        <p class="text-gray-600 text-sm">{{ Str::limit(strip_tags($post->content), 120) }}</p>
+                        <h3 class="card-title text-base leading-tight">
+                            {{ Str::limit($post->title, 60) }}
+                        </h3>
+                        <p class="text-sm text-base-content/70">
+                            {{ Str::limit(strip_tags($post->content), 100) }}
+                        </p>
                         <div class="card-actions justify-end mt-4">
-                            <a href="{{ route('posts.show', $post->id) }}" class="btn btn-primary btn-sm">Read More</a>
+                            <a href="{{ route('posts.show', $post->id) }}" class="btn btn-sm btn-primary">Read More</a>
                         </div>
                     </div>
                 </div>
             @empty
-                <p class="col-span-3 text-center text-gray-500">No posts found.</p>
+                <p class="col-span-full text-center text-base-content/70">No posts found.</p>
             @endforelse
         </div>
     </section>
 
     <!-- Pagination -->
-    <section >
-        <div class="my-6">
-            {{ $posts->links() }}
-        </div>
-    </section>
+    <div class="mt-10 flex justify-center">
+        {{ $posts->links() }}
+    </div>
 </div>
 
 <style>
-/* Sembunyikan scrollbar */
-    .scrollbar-hide::-webkit-scrollbar { display: none; }
-    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+/* Hide scrollbar but still scrollable */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 </style>
 @endsection
