@@ -39,7 +39,7 @@
 
     <!-- Categories -->
     <section class="mb-10">
-        <div class="flex gap-3 overflow-x-auto scrollbar-hide pb-2">
+        <div class="flex gap-3 overflow-x-auto scrollbar-hide pb-2" >
             <a href="{{ route('posts.index') }}"
                class="btn btn-sm rounded-full {{ request()->has('category') ? 'btn-outline' : 'btn-primary' }}">
                 All
