@@ -8,7 +8,7 @@
         
         <div class="grid grid-cols-3 gap-4">
             @foreach($contacts as $contact)
-                <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300">
+                <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300" data-aos="fade-up">
                     <figure class="px-6 pt-6">
                         @if($contact->image)
                             <img src="{{ $contact->image }}" alt="{{ $contact->name }}" 

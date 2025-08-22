@@ -9,11 +9,10 @@
 @section('content')
 <div class="container mx-auto px-4 lg:px-8 py-10">
 
-    <!-- Hero Carousel -->
     <section class="mb-12">
         <div class="carousel w-full rounded-2xl shadow-lg">
             @foreach($carouselPosts as $index => $post)
-                <div id="slide{{ $index }}" class="carousel-item relative w-full">
+                <div id="slide{{ $index }}" class="carousel-item relative w-full" >
                     <a href="{{ route('posts.show', $post->id) }}" class="w-full">
                         @if($post->thumbnail_url)
                             <img src="{{ $post->thumbnail_url }}" class="w-full aspect-video object-cover" alt="{{ $post->title }}" />
@@ -37,7 +36,6 @@
         </div>
     </section>
 
-    <!-- Categories -->
     <section class="mb-10">
         <div class="flex gap-3 overflow-x-auto scrollbar-hide pb-2" >
             <a href="{{ route('posts.index') }}"
@@ -53,12 +51,11 @@
         </div>
     </section>
 
-    <!-- Posts Grid -->
     <section>
         <h2 class="text-2xl font-bold mb-6">Latest Posts</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             @forelse($posts as $post)
-                <div class="card bg-base-100 shadow-md hover:shadow-xl transition rounded-xl">
+                <div class="card bg-base-100 shadow-md hover:shadow-xl transition rounded-xl" data-aos="fade-up">
                     <figure class="overflow-hidden">
                         @if($post->thumbnail_url)
                             <img src="{{ $post->thumbnail_url }}" alt="{{ $post->title }}"
@@ -91,7 +88,6 @@
         </div>
     </section>
 
-    <!-- Pagination -->
     <div class="mt-10 flex justify-center">
         {{ $posts->links() }}
     </div>

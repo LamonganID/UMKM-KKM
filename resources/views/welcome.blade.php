@@ -76,7 +76,7 @@
             @if(isset($latestPosts) && $latestPosts->isNotEmpty())
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     @foreach($latestPosts as $post)
-                        <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition duration-300">
+                        <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition duration-300" data-aos="fade-up">
                             <figure>
                                 <img src="{{ $post->thumbnail_url ?? 'https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp' }}" 
                                      alt="{{ $post->title }}" 
