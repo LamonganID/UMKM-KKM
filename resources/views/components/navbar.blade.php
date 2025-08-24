@@ -15,7 +15,7 @@
         <li><a href="{{ route('welcome') }}#visiMisi">Visi-Misi</a></li>
         <li><a href="{{ route('posts.index') }}" class="{{ request()->routeIs('posts.*') ? 'text-primary font-semibold' : '' }}">Berita</a></li>
         <li><a href="{{ route('albums') }}" class="{{ request()->routeIs('albums') ? 'text-primary font-semibold' : '' }}">Albums</a></li>
-        <li><a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'text-primary font-semibold' : '' }}">Contact</a></li>
+        {{-- <li><a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'text-primary font-semibold' : '' }}">Contact</a></li> --}}
       </ul>
     </div>
   </div>
@@ -26,7 +26,7 @@
       <li><a href="{{ route('welcome') }}#visiMisi" class="hover:text-primary">Visi-Misi</a></li>
       <li><a href="{{ route('posts.index') }}" class="{{ request()->routeIs('posts.*') ? 'text-primary font-semibold border-b-2 border-primary' : 'hover:text-primary' }}">Berita</a></li>
       <li><a href="{{ route('albums') }}" class="{{ request()->routeIs('albums') ? 'text-primary font-semibold border-b-2 border-primary' : 'hover:text-primary' }}">Albums</a></li>
-      <li><a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'text-primary font-semibold border-b-2 border-primary' : 'hover:text-primary' }}">Contact</a></li>
+      {{-- <li><a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'text-primary font-semibold border-b-2 border-primary' : 'hover:text-primary' }}">Contact</a></li> --}}
     </ul>
   </div>
   <div class="navbar-end">
