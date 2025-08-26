@@ -15,7 +15,7 @@ class PostsController extends Controller
         $query = posts::with('category')
             ->where('status', 'published')
             ->orderBy('created_at', 'desc');
-            
+
         // Filter berdasarkan kategori jika parameter category ada
         if ($request->has('category')) {
             $categorySlug = $request->get('category');
@@ -24,12 +24,12 @@ class PostsController extends Controller
             });
         }
         
-        $posts = $query->paginate(9);
+        $posts = $query->paginate();
             
         $carouselPosts = posts::with('category')
             ->where('status', 'published')
             ->orderBy('created_at', 'desc')
-            ->limit(5)
+            ->take(5)
             ->get();
             
         $categories = categories::withCount('posts')

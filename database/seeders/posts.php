@@ -12,6 +12,6 @@ class posts extends Seeder
     public function run(): void
     {
         //
-        \App\Models\posts::factory(10)->create();
+        \App\Models\posts::factory(100)->create();
     }
 }

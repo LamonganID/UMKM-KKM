@@ -88,7 +88,7 @@
         </div>
     </section>
 
-    <div class="mt-10 flex justify-center">
+    <div class="mt-10 " data-aos="fade-up">
         {{ $posts->links() }}
     </div>
 </div>

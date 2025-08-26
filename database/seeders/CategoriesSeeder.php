@@ -23,6 +23,13 @@ class CategoriesSeeder extends Seeder
             'Keagamaan',
             'Lingkungan',
             'Informasi Umum',
+            'Teknologi',
+            'Ekonomi',
+            'Budaya',
+            'Sejarah',
+            'Lingkungan',
+            'Hiburan',
+            
         ];
 
         foreach ($categories as $name) {
