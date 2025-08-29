@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Profile extends Model
 {
     //
-    protected $fillable = ['content', 'luaswilayah', 'jumlahpenduduk', 'Jumlahpenduduk'];
+    protected $fillable = ['content', 'luaswilayah', 'jumlahpenduduk', 'dusun'];
     protected $table = 'profiles';
 }

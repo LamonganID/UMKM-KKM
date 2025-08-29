@@ -7,6 +7,9 @@ use App\Filament\Resources\SejarahResource\RelationManagers;
 use App\Models\Sejarah;
 use Filament\Forms;
 use Filament\Forms\Form;
+// use Filament\Forms\Components\RichEditor; --- IGNORE ---c
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\RichEditor;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -17,17 +20,17 @@ class SejarahResource extends Resource
 {
     protected static ?string $model = Sejarah::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-clock';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 //
-                Forms\Components\Textarea::make('content')
+                RichEditor::make('content')
                     ->label('Content')
                     ->required(),
-                Forms\Components\FileUpload::make('image')
+                FileUpload::make('image')
                     ->label('Gambar')
                     ->image()
                     ->directory('sejarah/gambar')

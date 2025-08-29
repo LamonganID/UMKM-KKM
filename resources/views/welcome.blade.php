@@ -13,14 +13,14 @@
             
             <!-- Text -->
             <div data-aos="fade-right">
-                <h1 class="text-4xl lg:text-5xl font-bold mb-6">Profil Desa Cipdes</h1>
+                <h1 class="text-4xl lg:text-5xl font-bold mb-6">Carangrejo Informasi Profil Desa</h1>
                 @if(isset($profile) && $profile->isNotEmpty())
                     <div class="mb-6 leading-relaxed">
                         {!! $profile->first()->content !!}
                     </div>
                 @else
-                    <p class="mb-4 leading-relaxed">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia laboriosam, facere fugiat optio animi minus ipsam ducimus magnam et ipsa?</p>
-                    <p class="mb-6 leading-relaxed">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam omnis harum quae velit iste quos iure hic voluptatum quod sapiente?</p>
+                    <p class="mb-4 leading-relaxed">Desa Carangrejo terletak di Kecamatan Kesamben Kabupaten Jombang dengan luas wilayah 295 Ha dengan rincian Luas Permukiman 62,435 Ha dan Luas Persawahan 199,565 Ha  </p>
+                    <p class="mb-6 leading-relaxed">Desa Carangrejo merupakan Desa yang terletak ± 7 Km dari pusat Pemerintahan Kecamatan Kesamben dengan batas batas wilayah sebagai berikut di sebelah Timur Desa Kendalsari,Sebelah Selatan	Desa Madyopuro,Sebelah Barat Desa Watudakon,Sebelah Utara Desa Pojokrejo</p>
                 @endif
                 <a href="#visiMisi" class="btn btn-primary">Sejarah Desa Cipdes</a>
             </div>

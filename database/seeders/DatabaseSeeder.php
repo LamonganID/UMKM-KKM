@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             CategoriesSeeder::class,
             RoleSeeder::class,
             UserSeeder::class,
-            // posts::class,
+            posts::class,
         ]);
 
         User::factory()->create([

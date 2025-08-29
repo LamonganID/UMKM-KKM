@@ -9,6 +9,8 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\RichEditor;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\ProfileResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -18,24 +20,31 @@ class ProfileResource extends Resource
 {
     protected static ?string $model = Profile::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-archive-box';
 
-    public static function form(Form $form): Form
+public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                TextInput::make('content')
-                    ->required()
-                    ->columnSpanFull(),
-                TextInput::make('luaswilayah')
-                    ->required()
-                    ->columnSpanFull(),
-                TextInput::make('jumlahpenduduk')
-                    ->required()
-                    ->columnSpanFull(),
-                TextInput::make('Jumlahpenduduk')
-                    ->required()
-                    ->columnSpanFull(),
+                Grid::make(2)
+                    ->schema([
+                        TextInput::make('luaswilayah')
+                        ->label('Luas Wilayah (Km2)')
+                        ->placeholder('e.g., 1.234 Km2 ')
+                        ->required(),
+                        TextInput::make('jumlahpenduduk')
+                        ->label('Jumlah Penduduk')
+                        ->placeholder('e.g., 1.234 ')
+                            ->required(),  
+                        TextInput::make('dusun')
+                        ->label('Jumlah Dusun')
+                        ->placeholder('e.g., 1 Dusun ')
+                            ->required(),
+                        RichEditor::make('content')
+                            ->label('Content')
+                            ->required()
+                            ->columnSpanFull(),
+                    ]),
             ]);
     }
 
@@ -43,6 +52,20 @@ class ProfileResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('id')
+                ->sortable(),
+                Tables\Columns\TextColumn::make('content')
+                ->limit(50),
+
+                Tables\Columns\TextColumn::make('luaswilayah')
+                ->label('Luas Wilayah (Km2)')
+                ->sortable()
+                ->searchable(),
+                Tables\Columns\TextColumn::make('jumlahpenduduk')
+                ->label('Jumlah Penduduk')->sortable()
+                ->searchable(),
+                Tables\Columns\TextColumn::make('dusun')->label('Jumlah Dusun')->sortable()->searchable(),
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -57,6 +80,7 @@ class ProfileResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

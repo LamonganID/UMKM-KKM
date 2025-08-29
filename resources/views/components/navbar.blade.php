@@ -11,10 +11,10 @@
       <ul tabindex="0"
           class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
         <li><a href="{{ route('welcome') }}" class="{{ request()->routeIs('welcome') ? 'text-primary font-semibold' : '' }}">Home</a></li>
-        <li><a href="{{ route('welcome') }}#profile">Profile</a></li>
+<li><a href="{{ route('welcome') }}#profile"><i class="fas fa-user"></i> Profile</a></li>
         <li><a href="{{ route('welcome') }}#visiMisi">Visi-Misi</a></li>
         <li><a href="{{ route('posts.index') }}" class="{{ request()->routeIs('posts.*') ? 'text-primary font-semibold' : '' }}">Berita</a></li>
-        <li><a href="{{ route('albums') }}" class="{{ request()->routeIs('albums') ? 'text-primary font-semibold' : '' }}">Albums</a></li>
+<li><a href="{{ route('albums') }}" class="{{ request()->routeIs('albums') ? 'text-primary font-semibold' : '' }}"><i class="fas fa-history"></i> History</a></li>
         {{-- <li><a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'text-primary font-semibold' : '' }}">Contact</a></li> --}}
       </ul>
     </div>
@@ -30,6 +30,6 @@
     </ul>
   </div>
   <div class="navbar-end">
-    <a class="btn btn-ghost text-xl font-bold tracking-wide" href="{{ route('welcome') }}">EXAMPLE.ID</a>
+  <a class="btn btn-ghost text-xl font-bold tracking-wide" href="{{ route('welcome') }}">Desa Carangrejo.id</a>
   </div>
 </div>

@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->text('content');
             $table->string('luaswilayah');
-            $table->string('jumlahpenduduk');
-            $table->string('Jumlahpenduduk');
+            $table->string('jumlahpenduduk'); // This line will be removed
+            $table->string('dusun');
             $table->timestamps();
         });
     }
